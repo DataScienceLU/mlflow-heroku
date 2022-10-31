@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM ubuntu:jammy-20221020
 
 COPY ./requirements.txt ./requirements.txt
 
@@ -15,7 +15,6 @@ RUN set -x \
 # WWW (nginx)
 RUN addgroup -gid 1000 www \
     && adduser -uid 1000 -H -D -s /bin/sh -G www www
-
 
 COPY nginx.conf.template /app/nginx.conf.template
 
