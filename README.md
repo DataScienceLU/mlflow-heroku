@@ -1,8 +1,9 @@
 
-# mlflow with basic auth
+# :cyclone:	MLflow with basic authentication
 
-Standard [mlflow](https://mlflow.org/) does not have any authentication
-for the web-interface.
+This project is primarly a [soundsensing/mlflow-easyauth](https://github.com/soundsensing/mlflow-easyauth) fork.
+
+Standard [MLflow](https://mlflow.org/) does not have any authentication for the web-interface.
 This project adds basic HTTP authentication with a single username, password to the web interface.
 And packages this up in a easy-to-install Docker image.
 
@@ -12,43 +13,15 @@ It should be easy to make work on other Docker providers,
 with other supported mlflow backends for artifacts and database.
 Pull requests are welcome to fix any compatibility issues.
 
-## Status
+## :triangular_ruler: Architecture 
 
-**In Use**
+Whereas the original repo was achieving a [MLflow Scenario 4 tracking architecture], this repo aims to build a [Scenario 5]
 
-# Quickstart
+![test](https://www.mlflow.org/docs/latest/_images/scenario_5.png)
 
-## Deploying to Heroku
+# :rocket: Quickstart
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-This will provision an Heroku app, and a Postgres add-on for persisting metrics etc.
-Artifact store needs to be configured separately, see below.
-
-
-## Use in mflow client
-
-Assuming that you have [mlflow tracking integration](https://www.mlflow.org/docs/latest/quickstart.html#using-the-tracking-api) set up already.
-
-Configure the client
-
-    export MLFLOW_TRACKING_URI=https://my-mlflow-instance.herokuapp.com
-    export MLFLOW_TRACKING_USERNAME=user
-    export MLFLOW_TRACKING_PASSWORD=user
-
-Create a new experiment
-
-    mlflow experiments create -n test6
-    export MLFLOW_EXPERIMENT_NAME=test6
-
-Run your
-
-    python3 example.py
-
-Open the web browser at your newly deployed Heroku app.
-You should now have runs tracked with metrics being logged.
-
-## Enable artifact persistence
+## :card_file_box: Enable artifact persistence
 
 Using [Google Cloud Storage](https://cloud.google.com/storage/).
 
@@ -64,68 +37,49 @@ Legacy Bucket Reader
 Legacy Object Reader
 ```
 
-Add the config to the backend on Heroku
-
-    heroku config:set ARTIFACT_URL=gs://MY-BUCKET/SOME/FOLDER
-    heroku config:set GOOGLE_APPLICATION_CREDENTIALS_JSON="`cat serviceaccount-fa31bc1bbb1d.json`"
-
-Configure the mlflow client
-
-    export GOOGLE_APPLICATION_CREDENTIALS=credentials.json
-
-Note that artifact URL is per experiment, so after this you'd need to create a new experiment
-to have it go to your GCS bucket.
-
-
-# Deploying with Docker
-
-
-Clone this git repo
-
+When deploying you will be asked to enter
 ```
-git clone https://github.com/soundsensing/mlflow-easyauth.git
-cd mlflow-easyauth.git
+ARTIFACT_URL=gs://<my-bucker/some/folder>
+GOOGLE_APPLICATION_CREDENTIALS_JSON=<information-in-your-sa-json>
 ```
 
-Build the image
+## :arrow_up: Deploying to Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+This will provision an Heroku app, and a Postgres add-on for persisting metrics etc.
+
+## :mag_right: Use in MLflow client
+
+Assuming that you have [mlflow tracking integration](https://www.mlflow.org/docs/latest/quickstart.html#using-the-tracking-api) set up already.
+
+Configure the client
 
 ```
-docker build -t my-mlflow-easyauth:latest .
-
+export MLFLOW_TRACKING_URI=https://<my-mlflow-instance>.herokuapp.com
+export MLFLOW_TRACKING_USERNAME=<usersame>
+export MLFLOW_TRACKING_PASSWORD=<password>
 ```
 
-Create a .env file with settings
-
-```bash
-cat <<EOT >> settings.env
-MLFLOW_TRACKING_USERNAME=user
-MLFLOW_TRACKING_PASSWORD=pass
-GOOGLE_APPLICATION_CREDENTIALS_JSON=None
-ARTIFACT_URL=mlruns
-DATABASE_URL=mlruns
-EOT
-"
-```
-
-
-Run it
+Create a new experiment
 
 ```
-docker run -it -p 8001:6000  --env-file=settings.env my-mlflow-easyauth:latest
+mlflow experiments create -n test
+export MLFLOW_EXPERIMENT_NAME=test
 ```
 
-
-# Developing
-
-This command re-runs all the steps needed to build and run a new version
+Run your
 
 ```
-docker build -t mlflow-easytracking:latest . && docker run -it -p 8001:80  --env-file=`pwd`/dev.env    mlflow-easytracking:latest bash /app/entry-point.sh
+python3 example.py
 ```
 
-# Tips & Tricks
+Open the web browser at your newly deployed Heroku app.
+You should now have runs tracked with metrics being logged.
 
-## Waking up free Heroku dynos
+# :bulb: Tips & Tricks
+
+## :zzz: Waking up free Heroku dynos
 
 If you are using Heroku Free dynos, they will go to sleep after inactivity,
 and then wake up again.
@@ -134,3 +88,7 @@ causing a the communication timeout and failing the ML pipeline.
 If using this in automated workflows, it may be smart to wakeup the server
 a bit in advance by making an HTTP request to it.
 For example before installing dependencies of the project, etc.
+
+
+[MLflow Scenario 4 tracking architecture]: https://www.mlflow.org/docs/latest/tracking.html#scenario-4-mlflow-with-remote-tracking-server-backend-and-artifact-stores
+[Scenario 5]: https://www.mlflow.org/docs/latest/tracking.html#scenario-5-mlflow-tracking-server-enabled-with-proxied-artifact-storage-access
