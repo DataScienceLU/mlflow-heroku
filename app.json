@@ -1,5 +1,5 @@
 {
-  "name": "mlflow-easyauth",
+  "name": "mlflow-heroku",
   "description": "Mlflow tracking server with simple authentication",
   "keywords": [
     "machine learning",
@@ -7,7 +7,7 @@
     "mlflow",
     "experiment tracking"
   ],
-  "repository": "https://github.com/soundsensing/mlflow-easyauth",
+  "repository": "https://github.com/jordandelbar/mlflow-heroku",
   "stack": "container",
   "env": {
     "MLFLOW_TRACKING_PASSWORD": {
@@ -16,7 +16,15 @@
     },
     "MLFLOW_TRACKING_USERNAME": {
       "description": "Username for mlflow web dashboard and HTTP API",
-      "value": "user"
+      "value": "USERNAME"
+    },
+    "ARTIFACT_URL": {
+      "description": "GCP cloud storage for artifacts",
+      "value": "gs://<bucket-name>/"
+    },
+    "GOOGLE_APPLICATION_CREDENTIALS_JSON": {
+      "description": "GCP service account json",
+      "value": ""      
     }
   },
   "addons": [
