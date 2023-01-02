@@ -13,6 +13,8 @@ It should be easy to make work on other Docker providers,
 with other supported mlflow backends for artifacts and database.
 Pull requests are welcome to fix any compatibility issues.
 
+As of beginning of December 2022, Heroku does not offer any free plan anymore. In order to run this server you will have to subscribe to the Eco dyno plan and also subscribe to a Postgres add-on. 
+
 ## :triangular_ruler: Architecture 
 
 Whereas the original repo was achieving a [MLflow Scenario 4 tracking architecture], this repo aims to build a [Scenario 5]
@@ -81,7 +83,7 @@ You should now have runs tracked with metrics being logged.
 
 ## :zzz: Waking up free Heroku dynos
 
-If you are using Heroku Free dynos, they will go to sleep after inactivity,
+If you are using Heroku Eco dynos, they will go to sleep after inactivity,
 and then wake up again.
 Thus when the mlflow client connects the app may be sleeping,
 causing a the communication timeout and failing the ML pipeline.
