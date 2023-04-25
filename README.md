@@ -81,11 +81,10 @@ You should now have runs tracked with metrics being logged.
 
 # :bulb: Tips & Tricks
 
-## :zzz: Waking up free Heroku dynos
+## :zzz: Waking up Eco Heroku dynos
 
-If you are using Heroku Eco dynos, they will go to sleep after inactivity,
-and then wake up again.
-Thus when the mlflow client connects the app may be sleeping,
+If you are using Heroku Eco dynos, they will go to sleep after inactivity.
+When the mlflow client connects the app may be sleeping,
 causing a the communication timeout and failing the ML pipeline.
 If using this in automated workflows, it may be smart to wakeup the server
 a bit in advance by making an HTTP request to it.
