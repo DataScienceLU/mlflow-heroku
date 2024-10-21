@@ -19,12 +19,20 @@
       "value": "USERNAME"
     },
     "ARTIFACT_URL": {
-      "description": "GCP cloud storage for artifacts",
-      "value": "gs://<bucket-name>/"
+      "description": "S3 cloud storage for artifacts",
+      "value": "s3://<bucket-name>/"
     },
-    "GOOGLE_APPLICATION_CREDENTIALS_JSON": {
-      "description": "GCP service account json",
+    "MLFLOW_S3_ENPOINT_URL": {
+      "description": "URL to S3 storage for artifacts",
       "value": ""      
+    },
+    "AWS_ACCESS_KEY_ID": {
+      "description": "Key ID for connecting to S3 endpoint",
+      "value": ""
+    },
+    "AWS_SECRET_ACCESS_KEY": {
+      "description": "Key for connecting to S3 endpoint",
+      "value": ""
     }
   },
   "addons": [
