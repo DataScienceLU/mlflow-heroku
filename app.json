@@ -22,7 +22,7 @@
       "description": "S3 cloud storage for artifacts",
       "value": "s3://<bucket-name>/"
     },
-    "MLFLOW_S3_ENPOINT_URL": {
+    "MLFLOW_S3_ENDPOINT_URL": {
       "description": "URL to S3 storage for artifacts",
       "value": ""      
     },
